@@ -12,7 +12,13 @@
 ?>
 <body>
 <h2>Welcome to Movie Seen</h2>
-<p>You are logged in as <strong><?php print($user); ?></strong></p>
+<a href="index.php">Home</a>
+<a href="search.php">Search Movies</a> |
+<a href="home.php">My Profile</a>
 <a href="logout.php">Logout</a><br />
+
+You are logged in as <strong><?php print($user); ?></strong><br/><br/>
+
+
 </body>
 </html>
