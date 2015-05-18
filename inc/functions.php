@@ -27,42 +27,60 @@ function watchlist($chkList) {
 }
 
 function seenOrNot($id) {
-	connectDB();
-	$query = mysql_query("SELECT * FROM users WHERE FIND_IN_SET('$id',seen)");
-	while($row = mysql_fetch_array($query))
-	{
-	$tbl_user = $row['username'];
-	$arr_seen = explode(",", $row['seen']);
-	
-		foreach($arr_seen as $seen){
-			if($seen == $id) {
-				return true;
+	if(isset($_SESSION['user'])){
+		$user = $_SESSION['user'];
+		connectDB();
+		$query = mysql_query("SELECT * FROM users WHERE username='$user' AND FIND_IN_SET('$id',seen)");
+		while($row = mysql_fetch_array($query))
+		{
+		$tbl_user = $row['username'];
+		$arr_seen = explode(",", $row['seen']);
+		
+			foreach($arr_seen as $seen){
+				if($seen == $id) {
+					return true;
+				}
 			}
-		}
-	}	
+		}	
+	} else {
+		return false;
+	}
 }
 
 function listOrNot($id) {
-	connectDB();
-	$query = mysql_query("SELECT * FROM users WHERE FIND_IN_SET('$id',watchlist)");
-	while($row = mysql_fetch_array($query))
-	{
-	$tbl_user = $row['username'];
-	$arr_watchlist = explode(",", $row['watchlist']);
-	
-		foreach($arr_watchlist as $list){
-			if($list == $id) {
-				return true;
+	if(isset($_SESSION['user'])){
+		$user = $_SESSION['user'];
+		connectDB();
+		$query = mysql_query("SELECT * FROM users WHERE username='$user' AND FIND_IN_SET('$id',watchlist)");
+		while($row = mysql_fetch_array($query))
+		{
+		$tbl_user = $row['username'];
+		$arr_list = explode(",", $row['watchlist']);
+		
+			foreach($arr_list as $list){
+				if($list == $id) {
+					return true;
+				}
 			}
-		}
-	}	
+		}	
+	} else {
+		return false;
+	}
 }
 
-function addToList($id, $list) {
-	if($list == "seen") {
-		echo "Adding ".$id." to Seen";
-	} elseif($list == "watchlist") {
-		echo "Adding ".$id." to Watchlist";
+function modifyList($action, $id, $list) {
+	if($action == "add") {
+		if($list == "seen") {
+			echo "Adding ".$id." to Seen";
+		} elseif($list == "watchlist") {
+			echo "Adding ".$id." to Watchlist";
+		}
+	} elseif($action == "remove") {
+		if($list == "seen") {
+			echo "Removing ".$id." from Seen";
+		} elseif($list == "watchlist") {
+			echo "Removing ".$id." from Watchlist";
+		}
 	}
 }
 
@@ -107,15 +125,35 @@ function displayMovieData($row){
 	
 	$chkSeen = seenOrNot($imdbID);
 	$chkList = listOrNot($imdbID);
+	
 	$eyeball = eyeball($chkSeen);
 	$watchlist = watchlist($chkList);
 	
-	
+	if(isset($_SESSION['user'])){
+		if($chkSeen){
+			$eyeCon = "<a href=\"modify.php?action=remove&list=seen&id=".$imdbID."\"><img src=\"".$eyeball."\"></a> ";
+		} 
+		
+		if(!$chkSeen) {
+			$eyeCon = "<a href=\"modify.php?action=add&list=seen&id=".$imdbID."\"><img src=\"".$eyeball."\"></a> ";
+		}
+		
+		if($chkList) {
+			$listIcon = " <a href=\"modify.php?action=remove&list=watchlist&id=".$imdbID."\"><img src=\"".$watchlist."\"></a>";
+		}
+		
+		if(!$chkList) {
+			$listIcon = " <a href=\"modify.php?action=add&list=watchlist&id=".$imdbID."\"><img src=\"".$watchlist."\"></a>";
+		}
+		$icons = $eyeCon.$listIcon;
+	} else {
+		$icons = "<a href=\"register.php\"><img src=\"".$eyeball."\"></a> <a href=\"register.php\"><img src=\"".$watchlist."\"></a>";
+	}
 	
 	print("
 			<tr>
 				<td rowspan=\"4\"><img src=\"".$poster."\"></td>
-				<td><strong>".$title." (".$year.")</strong> <img src=\"".$eyeball."\"> <img src=\"".$watchlist."\"></td>
+				<td><strong>".$title." (".$year.")</strong> ".$icons."</td>
 			</tr>
 			<tr>
 				<td><span title=\"Rating\">".$rated."</span> | <span title=\"Runtime\">".$runtime."</span> | <span title=\"Genre\">".$genre."</span> | <span title=\"Released\">".$released."</span></td>
