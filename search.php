@@ -17,12 +17,18 @@ include("inc/footer.php");
 <?php
 if(empty($_GET['search'])) {
 } elseif(isset($_GET['search'])) {
-	$term = rawurlencode(mysql_real_escape_string($_GET["search"]));
+	$term = rawurlencode($_GET["search"]);
+	echo $term."<br/>";
 	$obj = fetchJSON("s", $term);
-	$search = $obj['Search'];
 	
-	foreach($search as $movie) {
-		print '<a href="movie.php?id='.$movie['imdbID'].'"</a>'.$movie['Title']." (".$movie['Year'].')</a><br/>';
+	if(isset($obj['Response'])) {
+		print 'Results not found!';
+	} else {
+		$search = $obj['Search'];
+		
+		foreach($search as $movie) {
+			print '<a href="movie.php?id='.$movie['imdbID'].'"</a>'.$movie['Title']." (".$movie['Year'].')</a><br/>';
+		}
 	}
 }
 ?>

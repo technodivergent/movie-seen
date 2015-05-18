@@ -68,12 +68,78 @@ function listOrNot($id) {
 	}
 }
 
+function getSeen() {
+	if(isset($_SESSION['user'])){
+		$user = $_SESSION['user'];
+		connectDB();
+		$query = mysql_query("SELECT * FROM users WHERE username='$user'");
+		while($row = mysql_fetch_array($query))
+		{
+		$tbl_user = $row['username'];
+		$tbl_seen = $row['seen'];
+		return $tbl_seen;
+		}	
+	} else {
+		return false;
+	}
+}
+
+function putSeen($seen) {
+	if(isset($_SESSION['user'])){
+		$user = $_SESSION['user'];
+		connectDB();
+		
+		mysql_query("UPDATE users SET seen = '$seen' WHERE username='$user'") or die(mysql_error());	
+	} else {
+		return false;
+	}
+}
+
+function getList() {
+	if(isset($_SESSION['user'])){
+		$user = $_SESSION['user'];
+		connectDB();
+		$query = mysql_query("SELECT * FROM users WHERE username='$user'");
+		while($row = mysql_fetch_array($query))
+		{
+		$tbl_user = $row['username'];
+		$tbl_list = $row['watchlist'];
+		return $tbl_list;
+		}	
+	} else {
+		return false;
+	}
+}
+
+function putList($list) {
+	if(isset($_SESSION['user'])){
+		$user = $_SESSION['user'];
+		connectDB();
+		
+		mysql_query("UPDATE users SET watchlist = '$list' WHERE username='$user'") or die(mysql_error());	
+	} else {
+		return false;
+	}
+}
+
 function modifyList($action, $id, $list) {
 	if($action == "add") {
 		if($list == "seen") {
-			echo "Adding ".$id." to Seen";
+			$chkSeen = seenOrNot($id);
+			if(!$chkSeen) {
+				echo "Adding ".$id." to ".$list."<br/>";
+				$seen = getSeen().",".$id;
+				putSeen($seen);
+				header("location:home.php");
+			}
 		} elseif($list == "watchlist") {
-			echo "Adding ".$id." to Watchlist";
+			$chkList == listOrNot($id);
+			if(!$chkList) {
+				echo "Adding ".$id." to ".$list."<br/>";
+				$list = getList().",".$id;
+				putList($list);
+				header("location:home.php");
+			}
 		}
 	} elseif($action == "remove") {
 		if($list == "seen") {
@@ -103,25 +169,25 @@ function fetchJSON($parameter, $term) {
 }
 
 function displayMovieData($row){
-	$imdbID = mysql_real_escape_string($row['mv_imdbID']);
-	$title = mysql_real_escape_string($row['mv_title']);
-	$year = mysql_real_escape_string($row['mv_year']);
-	$rated = mysql_real_escape_string($row['mv_rated']);
-	$released = mysql_real_escape_string($row['mv_released']);
-	$runtime = mysql_real_escape_string($row['mv_runtime']);
-	$genre = mysql_real_escape_string($row['mv_genre']);
-	$director = mysql_real_escape_string($row['mv_director']);
-	$writer = mysql_real_escape_string($row['mv_writer']);
-	$actors = mysql_real_escape_string($row['mv_actors']);
-	$plot = mysql_real_escape_string($row['mv_plot']);
-	$lang = mysql_real_escape_string($row['mv_lang']);
-	$country = mysql_real_escape_string($row['mv_country']);
-	$awards = mysql_real_escape_string($row['mv_awards']);
-	$poster = mysql_real_escape_string($row['mv_posterURL']);
-	$metascore = mysql_real_escape_string($row['mv_metascore']);
-	$imdbRating = mysql_real_escape_string($row['mv_imdbRating']);
-	$imdbVotes = mysql_real_escape_string($row['mv_imdbVotes']);
-	$type = mysql_real_escape_string($row['mv_type']);
+	$imdbID = $row['mv_imdbID'];
+	$title = $row['mv_title'];
+	$year = $row['mv_year'];
+	$rated = $row['mv_rated'];
+	$released = $row['mv_released'];
+	$runtime = $row['mv_runtime'];
+	$genre = $row['mv_genre'];
+	$director = $row['mv_director'];
+	$writer = $row['mv_writer'];
+	$actors = $row['mv_actors'];
+	$plot = $row['mv_plot'];
+	$lang = $row['mv_lang'];
+	$country = $row['mv_country'];
+	$awards = $row['mv_awards'];
+	$poster = $row['mv_posterURL'];
+	$metascore = $row['mv_metascore'];
+	$imdbRating = $row['mv_imdbRating'];
+	$imdbVotes = $row['mv_imdbVotes'];
+	$type = $row['mv_type'];
 	
 	$chkSeen = seenOrNot($imdbID);
 	$chkList = listOrNot($imdbID);
