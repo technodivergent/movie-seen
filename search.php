@@ -1,5 +1,6 @@
 <?php
 include("inc/header.php");
+include("inc/functions.php");
 ?>
 	<form action="search.php" method="GET">
 		<table>
@@ -12,14 +13,12 @@ include("inc/header.php");
 <?php
 include("inc/footer.php");
 ?>
+
 <?php
 if(empty($_GET['search'])) {
 } elseif(isset($_GET['search'])) {
-	$url = "http://www.omdbapi.com/?s=";
 	$term = rawurlencode(mysql_real_escape_string($_GET["search"]));
-	
-	$json = file_get_contents($url.$term);
-	$obj = json_decode($json, true);
+	$obj = fetchJSON("s", $term);
 	$search = $obj['Search'];
 	
 	foreach($search as $movie) {

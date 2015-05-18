@@ -6,10 +6,8 @@ if(empty($_GET['id'])) {
 	echo "No movie selected";
 } elseif(isset($_GET['id'])) {
 	// Fetch JSON object from OMDb API
-	$url = "http://www.omdbapi.com/?i=";
 	$id = $_GET['id'];
-	$json = file_get_contents($url.$id);
-	$obj = json_decode($json, true);
+	$obj = fetchJSON("i", $_GET['id']);
 	
 	$cached = false;
 	

@@ -4,6 +4,86 @@ function connectDB() {
 	mysql_select_db("movie_seen") or die(mysql_error());
 }
 
+function eyeball($chkSeen) {
+	if($chkSeen) {
+		return "imgs/seen_k.png";
+	}
+	elseif(!$chkSeen) {
+		return "imgs/unseen_k.png";
+	} else {
+		return "imgs/unseen_k.png";
+	}
+}
+
+function watchlist($chkList) {
+	if($chkList) {
+		return "imgs/list.png";
+	}
+	elseif(!$chkList) {
+		return "imgs/notlist.png";
+	} else {
+		return "imgs/notlist.png";
+	}
+}
+
+function seenOrNot($id) {
+	connectDB();
+	$query = mysql_query("SELECT * FROM users WHERE FIND_IN_SET('$id',seen)");
+	while($row = mysql_fetch_array($query))
+	{
+	$tbl_user = $row['username'];
+	$arr_seen = explode(",", $row['seen']);
+	
+		foreach($arr_seen as $seen){
+			if($seen == $id) {
+				return true;
+			}
+		}
+	}	
+}
+
+function listOrNot($id) {
+	connectDB();
+	$query = mysql_query("SELECT * FROM users WHERE FIND_IN_SET('$id',watchlist)");
+	while($row = mysql_fetch_array($query))
+	{
+	$tbl_user = $row['username'];
+	$arr_watchlist = explode(",", $row['watchlist']);
+	
+		foreach($arr_watchlist as $list){
+			if($list == $id) {
+				return true;
+			}
+		}
+	}	
+}
+
+function addToList($id, $list) {
+	if($list == "seen") {
+		echo "Adding ".$id." to Seen";
+	} elseif($list == "watchlist") {
+		echo "Adding ".$id." to Watchlist";
+	}
+}
+
+function fetchJSON($parameter, $term) {
+	if($parameter == "i") {
+		$url = "http://www.omdbapi.com/?i=";
+	} 
+	
+	if ($parameter == "s") {
+		$url = "http://www.omdbapi.com/?s=";
+	}
+	
+	if ($parameter == "h") {
+		$url = "http://www.omdbapi.com/?i=";
+	}
+	
+	$json = file_get_contents($url.$term);
+	$obj = json_decode($json, true);
+	return $obj;
+}
+
 function displayMovieData($row){
 	$imdbID = mysql_real_escape_string($row['mv_imdbID']);
 	$title = mysql_real_escape_string($row['mv_title']);
@@ -25,10 +105,17 @@ function displayMovieData($row){
 	$imdbVotes = mysql_real_escape_string($row['mv_imdbVotes']);
 	$type = mysql_real_escape_string($row['mv_type']);
 	
+	$chkSeen = seenOrNot($imdbID);
+	$chkList = listOrNot($imdbID);
+	$eyeball = eyeball($chkSeen);
+	$watchlist = watchlist($chkList);
+	
+	
+	
 	print("
 			<tr>
 				<td rowspan=\"4\"><img src=\"".$poster."\"></td>
-				<td><strong>".$title." (".$year.")</strong></td>
+				<td><strong>".$title." (".$year.")</strong> <img src=\"".$eyeball."\"> <img src=\"".$watchlist."\"></td>
 			</tr>
 			<tr>
 				<td><span title=\"Rating\">".$rated."</span> | <span title=\"Runtime\">".$runtime."</span> | <span title=\"Genre\">".$genre."</span> | <span title=\"Released\">".$released."</span></td>

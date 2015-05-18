@@ -14,7 +14,7 @@ if(isset($_SESSION['user'])){
 	$user = $_SESSION['user'];
 	print '| <a href="home.php">My Profile</a> ';
 	print '<a href="logout.php">Logout</a><br/>';
-	print 'You are currently logged in as <strong>'.$user.'</strong>';
+	print 'You are currently logged in as <strong>'.$user.'</strong><br/>';
 } else {
 	print '| <a href="login.php">Login</a> ';
 	print '<a href="register.php">Register</a><br/>';
