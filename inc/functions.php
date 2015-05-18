@@ -75,9 +75,9 @@ function getSeen() {
 		$query = mysql_query("SELECT * FROM users WHERE username='$user'");
 		while($row = mysql_fetch_array($query))
 		{
-		$tbl_user = $row['username'];
-		$tbl_seen = $row['seen'];
-		return $tbl_seen;
+			$tbl_user = $row['username'];
+			$tbl_seen = $row['seen'];
+			return $tbl_seen;
 		}	
 	} else {
 		return false;
@@ -143,11 +143,33 @@ function modifyList($action, $id, $list) {
 		}
 	} elseif($action == "remove") {
 		if($list == "seen") {
-			echo "Removing ".$id." from Seen";
+			$chkSeen = seenOrNot($id);
+			if($chkSeen) {
+				echo "Removing ".$id." from ".$list."<br/>";
+				$seen = getSeen();
+				$newSeen = removeID($id, $seen);
+				putSeen($newSeen);
+				header("location:home.php");
+			}
 		} elseif($list == "watchlist") {
-			echo "Removing ".$id." from Watchlist";
+			$chkList = listOrNot($id);
+			if($chkList){
+				echo "Removing ".$id." from ".$list;
+				$list = getList();
+				$newList = removeID($id, $list);
+				putList($newList);
+				header("location:home.php");
+			}
 		}
 	}
+}
+
+function removeID($id, $string) {
+	$idArr = Array($id);
+	$boom = explode(',',$string);
+	$diff = array_diff($boom, $idArr);
+	$res = implode(',',$diff);
+	return $res;
 }
 
 function fetchJSON($parameter, $term) {
