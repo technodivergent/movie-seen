@@ -28,6 +28,7 @@
 if($_SERVER["REQUEST_METHOD"] == "POST") {
 	$username = mysql_real_escape_string($_POST["username"]);
 	$password = mysql_real_escape_string($_POST["password"]);
+	$hash = password_hash($password, PASSWORD_DEFAULT);
 	$email = mysql_real_escape_string($_POST["email"]);
 	
 	$registered = false;
@@ -48,9 +49,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 	
 	if(!$registered)
 	{
-		mysql_query("INSERT INTO users (username, password, email) VALUES ('$username', '$password', '$email')");
+		mysql_query("INSERT INTO users (username, password, email) VALUES ('$username', '$hash', '$email')");
 		print('<script>alert("Successfully registered!");</script>');
-		print('<script>window.location.assign("register.php");</script>');
+		print('<script>window.location.assign("login.php");</script>');
 	}
 }
 ?>

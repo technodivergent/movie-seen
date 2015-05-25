@@ -21,9 +21,9 @@ else
 		$table_users = $row['username'];
 		$table_password = $row['password'];
 	}
-	if( ($username == $table_users) && ($password == $table_password) )
+	if( ($username == $table_users) && (password_verify($password, $table_password)) )
 	{
-		if($password == $table_password)
+		if(password_verify($password, $table_password))
 		{
 			$_SESSION['user'] = $username;
 			header("location: home.php");

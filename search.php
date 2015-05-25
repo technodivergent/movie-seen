@@ -18,7 +18,6 @@ include("inc/footer.php");
 if(empty($_GET['search'])) {
 } elseif(isset($_GET['search'])) {
 	$term = rawurlencode($_GET["search"]);
-	echo $term."<br/>";
 	$obj = fetchJSON("s", $term);
 	
 	if(isset($obj['Response'])) {

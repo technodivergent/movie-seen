@@ -19,33 +19,44 @@ while($row = mysql_fetch_array($query))
 	
 	// Find logged in user's record
 	if($tbl_user == $user){
-		$seen = explode(',',$tbl_seen);
-		$watchlist = explode(',',$tbl_unseen);
+		if(isset($tbl_seen)){
+			$seen = explode(',',$tbl_seen);
+			$watchlist = explode(',',$tbl_unseen);
+		} else {
+			$seen = NULL;
+			$watchlist = NULL;
+		}
 		
 		//echo $tbl_user." has seen: ".$seen[0]."<br/>";
 		//cho $tbl_user." wants to see: ".$unseen[0]."<br/>";
 	}
 }	
-	
-	foreach($seen as $movie) {
-		$obj = fetchJSON("i", $movie);
-		$title = $obj['Title'];
-		$year = $obj['Year'];
-		$id = $obj['imdbID'];
-		$obj = fetchJSON("i", $movie);
-		print '<a href="movie.php?id='.$id.'">'.$title.' ('.$year.')</a><br/>';
+	if(isset($seen)){
+		foreach($seen as $movie) {
+			$obj = fetchJSON("i", $movie);
+			$title = $obj['Title'];
+			$year = $obj['Year'];
+			$id = $obj['imdbID'];
+			$obj = fetchJSON("i", $movie);
+			print '<a href="movie.php?id='.$id.'">'.$title.' ('.$year.')</a><br/>';
+		}
+	} else {
+		print 'There\'s nothing here yet! Search for movies!';
 	}
 ?>
 <p><strong>Watchlist</strong></p>	
 <?php
-	foreach($watchlist as $movie) {
-		$obj = fetchJSON("i", $movie);
-		$title = $obj['Title'];
-		$year = $obj['Year'];
-		$id = $obj['imdbID'];
-		print '<a href="movie.php?id='.$id.'">'.$title.' ('.$year.')</a><br/>';
-		//print $obj['Title'] ." (".$obj['Year'].")<br/>";
+	if(isset($seen)){
+		foreach($watchlist as $movie) {
+			$obj = fetchJSON("i", $movie);
+			$title = $obj['Title'];
+			$year = $obj['Year'];
+			$id = $obj['imdbID'];
+			print '<a href="movie.php?id='.$id.'">'.$title.' ('.$year.')</a><br/>';
+			//print $obj['Title'] ." (".$obj['Year'].")<br/>";
+		}
+	} else {
+		print 'There\'s nothing here yet! Search for movies!';
 	}
-	
 include("inc/footer.php");
 ?>
