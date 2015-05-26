@@ -1,8 +1,6 @@
-<html>
-	<head>
-		<title>Welcome to Movie Seen :: Keep track of the movies you've seen!</title>
-	</head>
-	<body>
+<?php
+include("inc/header.php");
+?>
 		<h2>Login</h2>
 		<a href="index.php">Go back</a>
 		<form action="checklogin.php" method="POST">
@@ -18,5 +16,6 @@
 				<tr><td colspan="2" align="right"><input type="submit" value="Login"/></td></tr>
 			</table>
 		</form>
-	</body>
-</html>
+<?php
+include("inc/footer.php");
+?>

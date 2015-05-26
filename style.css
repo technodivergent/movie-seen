@@ -1,0 +1,33 @@
+body {
+	background-color: #dddddd;
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
+	color: #777799;
+}
+
+p {
+	width: 50%;
+}
+
+h2 {
+	color: #444455;
+}
+
+/* unvisited link */
+a:link {
+    color: #88aadd;
+}
+
+/* visited link */
+a:visited {
+    color: #1A7AFF;
+}
+
+/* mouse over link */
+a:hover {
+    color: #ff8855;
+}
+
+/* selected link */
+a:active {
+    color: #ff8855;
+}

@@ -21,12 +21,12 @@ if(empty($_GET['search'])) {
 	$obj = fetchJSON("s", $term);
 	
 	if(isset($obj['Response'])) {
-		print 'Results not found!';
+		print ('Results not found!');
 	} else {
 		$search = $obj['Search'];
 		
 		foreach($search as $movie) {
-			print '<a href="movie.php?id='.$movie['imdbID'].'"</a>'.$movie['Title']." (".$movie['Year'].')</a><br/>';
+			print ('<a href="movie.php?id='.$movie['imdbID'].'"</a>'.$movie['Title']." (".$movie['Year'].')</a><br/>');
 		}
 	}
 }

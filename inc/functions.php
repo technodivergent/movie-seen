@@ -127,7 +127,7 @@ function modifyList($action, $id, $list) {
 		if($list == "seen") {
 			$chkSeen = seenOrNot($id);
 			if(!$chkSeen) {
-				echo "Adding ".$id." to ".$list."<br/>";
+				print("Adding ".$id." to ".$list."<br/>");
 				$seen = getSeen().",".$id;
 				putSeen($seen);
 				header("location:home.php");
@@ -135,7 +135,7 @@ function modifyList($action, $id, $list) {
 		} elseif($list == "watchlist") {
 			$chkList == listOrNot($id);
 			if(!$chkList) {
-				echo "Adding ".$id." to ".$list."<br/>";
+				print("Adding ".$id." to ".$list."<br/>");
 				$list = getList().",".$id;
 				putList($list);
 				header("location:home.php");
@@ -145,7 +145,7 @@ function modifyList($action, $id, $list) {
 		if($list == "seen") {
 			$chkSeen = seenOrNot($id);
 			if($chkSeen) {
-				echo "Removing ".$id." from ".$list."<br/>";
+				print("Removing ".$id." from ".$list."<br/>");
 				$seen = getSeen();
 				$newSeen = removeID($id, $seen);
 				putSeen($newSeen);
@@ -154,7 +154,7 @@ function modifyList($action, $id, $list) {
 		} elseif($list == "watchlist") {
 			$chkList = listOrNot($id);
 			if($chkList){
-				echo "Removing ".$id." from ".$list;
+				print("Removing ".$id." from ".$list);
 				$list = getList();
 				$newList = removeID($id, $list);
 				putList($newList);

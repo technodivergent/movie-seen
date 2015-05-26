@@ -1,8 +1,6 @@
-<html>
-	<head>
-		<title>Welcome to Movie Seen :: Keep track of the movies you've seen!</title>
-	</head>
-	<body>
+<?php
+include("inc/header.php");
+?>
 		<h2>Register</h2>
 		<a href="index.php">Go back</a>
 		<form action="register.php" method="POST">
@@ -22,9 +20,9 @@
 				<tr><td colspan="2" align="right"><input type="submit" value="Register"/></td></tr>
 			</table>
 		</form>
-	</body>
-</html>
 <?php
+include("inc/footer.php");
+
 if($_SERVER["REQUEST_METHOD"] == "POST") {
 	$username = mysql_real_escape_string($_POST["username"]);
 	$password = mysql_real_escape_string($_POST["password"]);
