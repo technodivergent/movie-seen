@@ -1,5 +1,6 @@
 <?php
 include("inc/header.php");
+include("inc/functions.php");
 ?>
 		<h2>Register</h2>
 		<a href="index.php">Go back</a>
@@ -31,8 +32,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 	
 	$registered = false;
 		
-	mysql_connect("localhost", "root", "") or die(mysql_error());
-	mysql_select_db("movie_seen") or die(mysql_error());
+	connectDB();
 	$query = mysql_query("SELECT * FROM users");
 	while($row = mysql_fetch_array($query))
 	{

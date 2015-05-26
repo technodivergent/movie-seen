@@ -1,10 +1,10 @@
 <?php
+include("inc/functions.php");
 session_start();
 $username = mysql_real_escape_string($_POST["username"]);
 $password = mysql_real_escape_string($_POST["password"]);
 
-mysql_connect("localhost", "root", "") or die(mysql_error());
-mysql_select_db("movie_seen") or die(mysql_error());
+connectDB();
 $query = mysql_query("SELECT * FROM users WHERE username='$username'");
 $records = mysql_num_rows($query);
 $table_users = "";
