@@ -31,17 +31,15 @@ session_start();
 		</div>
 		<div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-              <li><a href="index.php">Home</a></li>
-			  <li><a href="search.php">Search</a></li>
-              <li><a href="index.php?page=about">About</a></li>
-              <li><a href="index.php?page=contact">Contact</a></li>
-              
+				<li><a href="index.php">Home</a></li>
+				<li><a href="search.php">Search</a></li>
+				<li><a href="http://technikalmind.net/about/">About</a></li>
 	<?php
 		if(isset($_SESSION['user'])) {
 			$user = $_SESSION['user'];
 	?>
-					<li role="presentation"><a href="profile.php"><?php print($user); ?>'s profile</a></li>
-					<li role="presentation"><a href="logout.php">Logout</a></li>
+				<li role="presentation"><a href="profile.php"><?php print($user); ?>'s profile</a></li>
+				<li role="presentation"><a href="logout.php">Logout</a></li>
 	<?php
 		} else {
 	?>
