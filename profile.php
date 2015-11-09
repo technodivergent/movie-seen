@@ -6,7 +6,15 @@ if(!isset($_SESSION['user'])) {
 	header("location:index.php");
 }
 ?>
-<p><strong>Seen</strong></p>
+
+<div class="row">
+	<div class="col-md-6">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">Seen</h3>
+		</div>
+		<div class="panel-body">
+		<ul class="list-group">
 <?php
 connectDB();
 $query = mysql_query("SELECT * FROM users");
@@ -44,7 +52,16 @@ while($row = mysql_fetch_array($query))
 		print ('There\'s nothing here yet! Search for movies!');
 	}
 ?>
-<p><strong>Watchlist</strong></p>	
+		</div>
+	</div>
+	</div>
+	<div class="col-md-6">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">Watchlist</h3>
+		</div>
+		<div class="panel-body">
+		<ul class="list-group">
 <?php
 	// If user wants to see something, show it;
 	// otherwise, there is nothing to display
@@ -60,5 +77,11 @@ while($row = mysql_fetch_array($query))
 	} else {
 		print ('There\'s nothing here yet! Search for movies!');
 	}
+?>
+		</div>
+	</div>
+	</div>
+</div>
+<?php
 include("inc/footer.php");
 ?>
