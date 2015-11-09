@@ -9,12 +9,11 @@ if(!isset($_SESSION['user'])) {
 
 <div class="row">
 	<div class="col-md-6">
-	<div class="panel panel-default">
+	<div class="panel panel-info">
 		<div class="panel-heading">
 			<h3 class="panel-title">Seen</h3>
 		</div>
 		<div class="panel-body">
-		<ul class="list-group">
 <?php
 connectDB();
 $query = mysql_query("SELECT * FROM users");
@@ -56,12 +55,11 @@ while($row = mysql_fetch_array($query))
 	</div>
 	</div>
 	<div class="col-md-6">
-	<div class="panel panel-default">
+	<div class="panel panel-info">
 		<div class="panel-heading">
 			<h3 class="panel-title">Watchlist</h3>
 		</div>
 		<div class="panel-body">
-		<ul class="list-group">
 <?php
 	// If user wants to see something, show it;
 	// otherwise, there is nothing to display

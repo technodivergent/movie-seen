@@ -3,7 +3,7 @@ include("inc/header.php");
 include("inc/functions.php");
 ?>
 <div class="col-sm-7">
-	<div class="panel panel-info">
+	<div class="panel panel-primary">
 		<div class="panel-heading">
 			<h3 class="panel-title">Search</h3>
 		</div>
