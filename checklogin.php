@@ -26,7 +26,7 @@ else
 		if(password_verify($password, $table_password))
 		{
 			$_SESSION['user'] = $username;
-			header("location: home.php");
+			header("location: profile.php");
 		}
 	}
 	else

@@ -1,9 +1,13 @@
 <?php
 include("inc/header.php");
-?>
 
-<p>Welcome to Movie Seen! This project allows users to search for movies and display information about them. It also allows them to login/register to keep track of movies they have seen, or ones they would like to see.</p>
+if(!isset($_GET['page']) || empty($_GET['page']) || $_GET['page'] == "home") {
+	include("pages/index.php");
+} elseif($_GET['page'] == "about") {
+	include("pages/about.php");
+} elseif($_GET['page'] == "contact") {
+	include("pages/contact.php");
+}
 
-<?php
 include("inc/footer.php");
 ?>

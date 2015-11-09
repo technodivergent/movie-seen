@@ -1,27 +1,7 @@
 <?php
 include("inc/header.php");
 include("inc/functions.php");
-?>
-		<h2>Register</h2>
-		<a href="index.php">Go back</a>
-		<form action="register.php" method="POST">
-			<table>
-				<tr>
-					<td>Username:</td>
-					<td><input type="text" name="username" required="required"/></td>
-				</tr>
-				<tr>
-					<td>Password:</td>
-					<td><input type="password" name="password" required="required"/></td>
-				</tr>
-				<tr>
-					<td>E-Mail:</td>
-					<td><input type="text" name="email" required="required"/></td>
-				</tr>
-				<tr><td colspan="2" align="right"><input type="submit" value="Register"/></td></tr>
-			</table>
-		</form>
-<?php
+include("pages/register.php");
 include("inc/footer.php");
 
 if($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -48,7 +28,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 	if(!$registered)
 	{
 		mysql_query("INSERT INTO users (username, password, email) VALUES ('$username', '$hash', '$email')");
-		print('<script>alert("Successfully registered!");</script>');
+		print('<script>alert("Successfully registered! You may now login...");</script>');
 		print('<script>window.location.assign("login.php");</script>');
 	}
 }

@@ -21,46 +21,46 @@ session_start();
 <script src="inc/js/bootstrap.min.js"></script>
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
-  <div class="container">
-	<div class="navbar-header">
-	  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-		<span class="sr-only">Toggle navigation</span>
-		<span class="icon-bar"></span>
-		<span class="icon-bar"></span>
-		<span class="icon-bar"></span>
-	  </button>
-	  <a class="navbar-brand" href="#">Movie Seen</a>
-	</div>
+	<div class="container">
+		<div class="navbar-header">
+		  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		  </button>
+		  <a class="navbar-brand" href="index.php">Movie Seen</a>
+		</div>
+		<div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="index.php">Home</a></li>
+			  <li><a href="search.php">Search</a></li>
+              <li><a href="index.php?page=about">About</a></li>
+              <li><a href="index.php?page=contact">Contact</a></li>
+              
 	<?php
 		if(isset($_SESSION['user'])) {
 			$user = $_SESSION['user'];
 	?>
-			<div id="navbar" class="navbar-collapse collapse">
-				<nav>
-				  <ul class="nav navbar-nav pull-right">
-					<li role="presentation"><a class="navbar-brand" href="profile.php"><?php print($user); ?>'s profile</a></li>
-					<li role="presentation"><a class="navbar-brand" href="logout.php">Logout</a></li>
-				  </ul>
-				</nav>
-			</div>
+					<li role="presentation"><a href="profile.php"><?php print($user); ?>'s profile</a></li>
+					<li role="presentation"><a href="logout.php">Logout</a></li>
 	<?php
 		} else {
 	?>
-			<div id="navbar" class="navbar-collapse collapse">
-			  <form class="navbar-form navbar-right" action="checklogin.php" method="POST">
-				<div class="form-group">
-				  <input type="text" placeholder="Username" name="username" class="form-control">
-				</div>
-				<div class="form-group">
-				  <input type="password" placeholder="Password" name="password" class="form-control">
-				</div>
-				<button type="submit" class="btn btn-success">Sign in</button>
-			  </form>
-			</div><!--/.navbar-collapse -->
-		  </div>
+			<li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Login/Register <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                <li><a href="login.php">Login</a></li>
+                <li><a href="register.php">Register</a></li>
+				</ul>
+            </li>
+		  
 	<?php
 		}
 	?>
+            </ul>
+          </div><!--/.nav-collapse -->
+	</div>
 </nav>
-
+<div class="container">
 <h2>Welcome to Movie Seen</h2>
