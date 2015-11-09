@@ -6,7 +6,7 @@ include("inc/functions.php");
 		<table>
 			<tr>
 				<td>Search:</td>
-				<td><input type="text" name="search" required="required"/><input type="submit" value="Search"/></td>
+				<td><input type="text" name="s" required="required"/><input type="submit" value="Search"/></td>
 			</tr>
 		</table>
 	</form>
@@ -15,9 +15,9 @@ include("inc/footer.php");
 ?>
 
 <?php
-if(empty($_GET['search'])) {
-} elseif(isset($_GET['search'])) {
-	$term = rawurlencode($_GET["search"]);
+if(empty($_GET['s'])) {
+} elseif(isset($_GET['s'])) {
+	$term = rawurlencode($_GET["s"]);
 	$obj = fetchJSON("s", $term);
 	
 	if(isset($obj['Response'])) {
