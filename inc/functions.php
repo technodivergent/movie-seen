@@ -130,7 +130,7 @@ function modifyList($action, $id, $list) {
 				print("Adding ".$id." to ".$list."<br/>");
 				$seen = getSeen().",".$id;
 				putSeen($seen);
-				header("location:home.php");
+				header("location:profile.php");
 			}
 		} elseif($list == "watchlist") {
 			$chkList == listOrNot($id);
@@ -138,7 +138,7 @@ function modifyList($action, $id, $list) {
 				print("Adding ".$id." to ".$list."<br/>");
 				$list = getList().",".$id;
 				putList($list);
-				header("location:home.php");
+				header("location:profile.php");
 			}
 		}
 	} elseif($action == "remove") {
@@ -149,7 +149,7 @@ function modifyList($action, $id, $list) {
 				$seen = getSeen();
 				$newSeen = removeID($id, $seen);
 				putSeen($newSeen);
-				header("location:home.php");
+				header("location:profile.php");
 			}
 		} elseif($list == "watchlist") {
 			$chkList = listOrNot($id);
@@ -158,7 +158,7 @@ function modifyList($action, $id, $list) {
 				$list = getList();
 				$newList = removeID($id, $list);
 				putList($newList);
-				header("location:home.php");
+				header("location:profile.php");
 			}
 		}
 	}
