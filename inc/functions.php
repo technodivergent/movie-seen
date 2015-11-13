@@ -128,7 +128,11 @@ function modifyList($action, $id, $list) {
 			$chkSeen = seenOrNot($id);
 			if(!$chkSeen) {
 				print("Adding ".$id." to ".$list."<br/>");
-				$seen = getSeen().",".$id;
+				if(getSeen()) {
+					$seen = getSeen().",".$id;
+				} else {
+					$seen = $id;
+				}
 				putSeen($seen);
 				header("location:profile.php");
 			}
@@ -136,7 +140,11 @@ function modifyList($action, $id, $list) {
 			$chkList == listOrNot($id);
 			if(!$chkList) {
 				print("Adding ".$id." to ".$list."<br/>");
-				$list = getList().",".$id;
+				if(getList()) {
+					$list = getList().",".$id;
+				} else {
+					$list = $id;
+				}
 				putList($list);
 				header("location:profile.php");
 			}
