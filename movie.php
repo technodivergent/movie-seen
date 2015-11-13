@@ -14,7 +14,6 @@ if(empty($_GET['id'])) {
 	connectDB();
 	$query = mysql_query("SELECT * FROM movies");
 	?>
-	<table width="800">
 		<?php
 			// Go through the query and find out if the request is already cached
 			// If cached, display data from local database
@@ -30,7 +29,6 @@ if(empty($_GET['id'])) {
 				}
 			}
 		?>
-	</table>
 	<?php
 
 	

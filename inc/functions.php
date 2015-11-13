@@ -219,39 +219,50 @@ function displayMovieData($row){
 	
 	if(isset($_SESSION['user'])){
 		if($chkSeen){
-			$eyeCon = "<a href=\"modify.php?action=remove&list=seen&id=".$imdbID."\"><img src=\"".$eyeball."\"></a> ";
+			$eyeCon = "<span title=\"Remove from Seen List\"><a href=\"modify.php?action=remove&list=seen&id=".$imdbID."\"><img src=\"".$eyeball."\"></a></span> ";
 		} 
 		
 		if(!$chkSeen) {
-			$eyeCon = "<a href=\"modify.php?action=add&list=seen&id=".$imdbID."\"><img src=\"".$eyeball."\"></a> ";
+			$eyeCon = "<span title=\"Add to Seen List\"><a href=\"modify.php?action=add&list=seen&id=".$imdbID."\"><img src=\"".$eyeball."\"></a></span> ";
 		}
 		
 		if($chkList) {
-			$listIcon = " <a href=\"modify.php?action=remove&list=watchlist&id=".$imdbID."\"><img src=\"".$watchlist."\"></a>";
+			$listIcon = " <span title=\"Remove from Watchlist\"><a href=\"modify.php?action=remove&list=watchlist&id=".$imdbID."\"><img src=\"".$watchlist."\"></a></span>";
 		}
 		
 		if(!$chkList) {
-			$listIcon = " <a href=\"modify.php?action=add&list=watchlist&id=".$imdbID."\"><img src=\"".$watchlist."\"></a>";
+			$listIcon = " <span title=\"Add to Watchlist\"><a href=\"modify.php?action=add&list=watchlist&id=".$imdbID."\"><img src=\"".$watchlist."\"></a></span>";
 		}
 		$icons = $eyeCon.$listIcon;
 	} else {
-		$icons = "<a href=\"register.php\"><img src=\"".$eyeball."\"></a> <a href=\"register.php\"><img src=\"".$watchlist."\"></a>";
+		$icons = "<span title=\"register\"><a href=\"register.php\"><img src=\"".$eyeball."\"></a></span> <span title=\"register\"><a href=\"register.php\"><img src=\"".$watchlist."\"></a></span>";
 	}
 	
 	print("
-			<tr>
-				<td rowspan=\"4\"><img src=\"".$poster."\"></td>
-				<td><strong>".$title." (".$year.")</strong> ".$icons."</td>
-			</tr>
-			<tr>
-				<td><span title=\"Rating\">".$rated."</span> | <span title=\"Runtime\">".$runtime."</span> | <span title=\"Genre\">".$genre."</span> | <span title=\"Released\">".$released."</span></td>
-			</tr>
-			<tr>
-				<td>".$plot."</td>
-			</tr>
-			<tr>
-				<td><a href=\"http://imdb.com/title/".$imdbID."\">View on IMDb</a></td>
-			</tr>
+		<div class=\"row\">
+			<div class=\"col-sm-7\">
+				<div class=\"panel panel-primary\">
+					<div class=\"panel-heading\">
+						<h4 class=\"media-heading\">".$title." (".$year.")</h4>
+					</div>
+					<div class=\"panel-body\">
+						<div class=\"media\">
+							<div class=\"media-left media-middle\">
+								<img class=\"media-object\" width=\"128\" height=\"189\" src=\"".$poster."\">
+								".$icons."
+								<a href=\"http://imdb.com/title/".$imdbID."\"><span title=\"View on IMDb\" class=\"glyphicon glyphicon-info-sign\" aria-hidden=\"true\"></span></a>
+							</div>
+							<div class=\"media-body\">
+								<div class=\"media-heading\">
+									<span title=\"Rating\">".$rated."</span> | <span title=\"Runtime\">".$runtime."</span> | <span title=\"Genre\">".$genre."</span> | <span title=\"Released\">".$released."</span>
+								</div>
+							".$plot."
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	");
 }
 
