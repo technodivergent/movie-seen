@@ -27,18 +27,24 @@ while($row = mysql_fetch_array($query))
 	// Find record with user's lists then store it in an array
 	// or, if user has no records, set variable to NULL
 	if($tbl_user == $user){
-		if(isset($tbl_seen) || isset($tbl_unseen)){
+		if(isset($tbl_seen)){
 			$seen = explode(',',$tbl_seen);
-			$watchlist = explode(',',$tbl_unseen);
+			
 		} else {
 			$seen = NULL;
+			
+		}
+		
+		if(isset($tbl_unseen)) {
+			$watchlist = explode(',',$tbl_unseen);
+		} else {
 			$watchlist = NULL;
 		}
 	}
 }	
 	// If user has seen something, show it;
 	// otherwise, there is nothing to display
-	if(isset($seen)){
+	if(isset($seen) && !empty($seen)){
 		foreach($seen as $movie) {
 			$obj = fetchJSON("i", $movie);
 			$title = $obj['Title'];
@@ -63,7 +69,7 @@ while($row = mysql_fetch_array($query))
 <?php
 	// If user wants to see something, show it;
 	// otherwise, there is nothing to display
-	if(isset($watchlist)){
+	if(isset($watchlist) && !empty($watchlist)){
 		foreach($watchlist as $movie) {
 			$obj = fetchJSON("i", $movie);
 			$title = $obj['Title'];
