@@ -33,7 +33,7 @@ while($row = mysql_fetch_array($query))
 			$seen = NULL;
 		}
 		
-		if(isset($tbl_unseen) && !empty($tbl_seen)) {
+		if(isset($tbl_unseen) && !empty($tbl_unseen)) {
 			$watchlist = explode(',',$tbl_unseen);
 		} else {
 			$watchlist = NULL;
@@ -67,7 +67,7 @@ while($row = mysql_fetch_array($query))
 <?php
 	// If user wants to see something, show it;
 	// otherwise, there is nothing to display
-	if(isset($watchlist) && !empty($watchlist)){
+	if(isset($watchlist)){
 		foreach($watchlist as $movie) {
 			$obj = fetchJSON("i", $movie);
 			$title = $obj['Title'];
