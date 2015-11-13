@@ -5,14 +5,14 @@ include("pages/register.php");
 include("inc/footer.php");
 
 if($_SERVER["REQUEST_METHOD"] == "POST") {
+	connectDB();
 	$username = mysql_real_escape_string($_POST["username"]);
 	$password = mysql_real_escape_string($_POST["password"]);
 	$hash = password_hash($password, PASSWORD_DEFAULT);
 	$email = mysql_real_escape_string($_POST["email"]);
 	
 	$registered = false;
-		
-	connectDB();
+	
 	$query = mysql_query("SELECT * FROM users");
 	while($row = mysql_fetch_array($query))
 	{

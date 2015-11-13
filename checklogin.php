@@ -1,10 +1,10 @@
 <?php
 include("inc/functions.php");
 session_start();
+connectDB();
 $username = mysql_real_escape_string($_POST["username"]);
 $password = mysql_real_escape_string($_POST["password"]);
 
-connectDB();
 $query = mysql_query("SELECT * FROM users WHERE username='$username'");
 $records = mysql_num_rows($query);
 $table_users = "";
