@@ -11,7 +11,7 @@ if(!isset($_SESSION['user'])) {
 	<div class="col-md-6">
 	<div class="panel panel-info">
 		<div class="panel-heading">
-			<h3 class="panel-title">Seen</h3>
+			<h3 class="panel-title">Movies I have seen</h3>
 		</div>
 		<div class="panel-body">
 <?php
@@ -61,7 +61,7 @@ while($row = mysql_fetch_array($query))
 	<div class="col-md-6">
 	<div class="panel panel-info">
 		<div class="panel-heading">
-			<h3 class="panel-title">Watchlist</h3>
+			<h3 class="panel-title">Movies I haven't seen</h3>
 		</div>
 		<div class="panel-body">
 <?php
