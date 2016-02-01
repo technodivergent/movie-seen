@@ -16,7 +16,7 @@ include("inc/functions.php");
 					$term = rawurlencode($_GET["s"]);
 					$obj = fetchJSON("s", $term);
 					
-					if(isset($obj['Response'])) {
+					if($obj['Response'] == "False") {
 						print ('Results not found!');
 					} else {
 						$search = $obj['Search'];
