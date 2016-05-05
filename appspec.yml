@@ -3,6 +3,4 @@ os: linux
 files:
   - source: /
     destination: /var/www/html/
-hooks:
-  AfterInstall:
-    - location: /home/ec2-user/copy-config.sh
+	
