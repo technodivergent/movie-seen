@@ -1,7 +1,9 @@
 <?php
+include("dbconfig.php");
+
 function connectDB() {
-	mysql_connect("localhost", "root", "") or die(mysql_error());
-	mysql_select_db("movie_seen") or die(mysql_error());
+	mysql_connect(DB_HOST, DB_USER, DB_PASS) or die(mysql_error());
+	mysql_select_db(DB_TABLE) or die(mysql_error());
 }
 
 function eyeball($chkSeen) {
